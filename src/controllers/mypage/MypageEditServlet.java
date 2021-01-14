@@ -1,4 +1,4 @@
-package controllers.employees;
+package controllers.mypage;
 
 import java.io.IOException;
 
@@ -10,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Employee;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class MypageIndexServlet
+ * Servlet implementation class MypageEditServlet
  */
-@WebServlet("/mypage/index")
-public class MypageIndexServlet extends HttpServlet {
+@WebServlet("/mypage/edit")
+public class MypageEditServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageIndexServlet() {
+    public MypageEditServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -31,14 +33,16 @@ public class MypageIndexServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
+
+        Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
+
         em.close();
 
-        if(request.getSession().getAttribute("flush") != null) {
-        request.setAttribute("flush", request.getSession().getAttribute("flush"));
-        request.getSession().removeAttribute("flush");
-        }
+        request.setAttribute("employee", e);
+        request.setAttribute("_token", request.getSession().getId());
+        request.getSession().setAttribute("employee_id", e.getId());
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/edit.jsp");
         rd.forward(request, response);
     }
 

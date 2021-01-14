@@ -10,11 +10,11 @@
     </div>
 </c:if>
 <label for="code">部署</label><br />
-<input type="text" name="code" value="${employee.department}" />
+<input type="text" name="department" value="${employee.department}" />
 <br /><br />
 
 <label for="name">目標</label><br />
-<input type="text" name="name" value="${employee.objective}" />
+<input type="text" name="objective" value="${employee.objective}" />
 <br /><br />
 
 <input type="hidden" name="_token" value="${_token}" />

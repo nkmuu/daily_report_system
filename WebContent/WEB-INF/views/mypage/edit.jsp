@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/WEB-INF/views/layout/app.jsp">
-    <c:param name="content">
-        <c:choose>
-            <c:when test="${employee != null}">
-                <h2>id:${employee.id} ${employee.name}さんのマイページ情報　編集ページ</h2>
-                <form method="POST" action="<c:url value='/mypage/update' />">
-                    <c:import url="_form.jsp" />
-                </form>
-            </c:when>
-            <c:otherwise>
-                <h2>お探しのデータは見つかりませんでした。</h2>
-            </c:otherwise>
-        </c:choose>
+    <c:param name="content">
+        <c:choose>
+            <c:when test="${employee != null}">
+                <h2>${employee.name} マイページ情報　編集ページ</h2>
+                <form method="POST" action="<c:url value='/mypage/update' />">
+                    <c:import url="_form.jsp" />
+                </form>
+            </c:when>
+            <c:otherwise>
+                <h2>お探しのデータは見つかりませんでした。</h2>
+            </c:otherwise>
+        </c:choose>
 
-        <p><a href="<c:url value='/mypage/index' />">マイページに戻る</a></p>
-    </c:param>
+        <p><a href="<c:url value='/mypage/index?id=${employee.id}' />">マイページに戻る</a></p>
+    </c:param>
 </c:import>

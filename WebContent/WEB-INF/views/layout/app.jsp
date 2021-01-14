@@ -22,7 +22,7 @@
                 </div>
                 <c:if test="${sessionScope.login_employee != null}">
                     <div id="employee_name">
-                        <a href="<c:url value='/mypage/index' />"><c:out value="${sessionScope.login_employee.name}" />&nbsp;さん</a>&nbsp;&nbsp;&nbsp;
+                        <a href="<c:url value='/mypage/index?id=${sessionScope.login_employee.id}' />"><c:out value="${sessionScope.login_employee.name}" />&nbsp;さん</a>&nbsp;&nbsp;&nbsp;
                         <a href="<c:url value='/logout' />">ログアウト</a>
                     </div>
                 </c:if>
