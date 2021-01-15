@@ -1,6 +1,7 @@
-package controllers.mypage;
+package controllers.follows;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -10,20 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Employee;
+import models.Follow;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class MypageIndexServlet
+ * Servlet implementation class FollowsIndexServlet
  */
-@WebServlet("/mypage/index")
-public class MypageIndexServlet extends HttpServlet {
+@WebServlet("/follows/index")
+public class FollowsIndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageIndexServlet() {
+    public FollowsIndexServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,29 +35,18 @@ public class MypageIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        /*
-        List<Employee> employees = em.createNamedQuery("getAllEmployees", Employee.class).getResultList();
+        List<Follow> follows = em.createNamedQuery("getAllFollows", Follow.class).getResultList();
 
         em.close();
 
-        request.setAttribute("employees", employees);
-
+        request.setAttribute("follows", follows);
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }
-        */
-
-        Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
-
-        em.close();
-
-        request.setAttribute("employee", e);
-
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/follows/index.jsp");
         rd.forward(request, response);
     }
-
 
 }
