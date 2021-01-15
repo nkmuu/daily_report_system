@@ -8,11 +8,11 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-        <h2>フォローリスト</h2>
+        <h3>フォローリスト</h3>
         <ul>
             <c:forEach var="follow" items="${follows}">
                 <li>
-                    ・<c:out value="${follow.follower.name}" />
+                    ・<a href="<c:url value='/mypage/other?id=${follow.follower.id}'/>"><c:out value="${follow.follower.name}" /></a>
                 </li>
             </c:forEach>
         </ul>

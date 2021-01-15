@@ -14,16 +14,16 @@ import models.Employee;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class MypageIndexServlet
+ * Servlet implementation class MypageOtherServlet
  */
-@WebServlet("/mypage/index")
-public class MypageIndexServlet extends HttpServlet {
+@WebServlet("/mypage/other")
+public class MypageOtherServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageIndexServlet() {
+    public MypageOtherServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +34,6 @@ public class MypageIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        /*
-        List<Employee> employees = em.createNamedQuery("getAllEmployees", Employee.class).getResultList();
-
-        em.close();
-
-        request.setAttribute("employees", employees);
-
-        if(request.getSession().getAttribute("flush") != null) {
-            request.setAttribute("flush", request.getSession().getAttribute("flush"));
-            request.getSession().removeAttribute("flush");
-        }
-        */
-
         Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
@@ -54,9 +41,8 @@ public class MypageIndexServlet extends HttpServlet {
         request.setAttribute("employee", e);
 
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/other.jsp");
         rd.forward(request, response);
     }
-
 
 }

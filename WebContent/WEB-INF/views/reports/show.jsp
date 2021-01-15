@@ -11,7 +11,11 @@
                     <tbody>
                         <tr>
                             <th>氏名</th>
-                            <td><c:out value="${report.employee.name}" /></td>
+                            <td><a href="
+                            <c:if test="${sessionScope.login_employee.id == report.employee.id}"><c:url value="/mypage/index?id=${report.employee.id}" /></c:if>
+                            <c:if test="${sessionScope.login_employee.id != report.employee.id}"><c:url value="/mypage/other?id=${report.employee.id}" /></c:if>
+                            ">
+                            <c:out value="${report.employee.name}" /></a></td>
                         </tr>
                         <tr>
                             <th>日付</th>

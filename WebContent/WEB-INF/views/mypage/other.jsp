@@ -7,6 +7,7 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
+
             <h2><c:out value="${employee.name}" />&nbsp;さん</h2>
                 <div class="mypage_container">
                     <div class="mypage_index">
@@ -25,17 +26,10 @@
                             </tbody>
                         </table>
 
-                    <p><a href="<c:url value='/mypage/edit?id=${employee.id}' />">編集する</a></p>
                     </div>
 
                     <div class="follow_list">
-                        フォローリスト<br />
-                        ・Aさん<br />
-                        ・Bさん<br />
-                        ・Cさん<br />
-                        ・Dさん<br />
-                        ・Eさん<br />
-                        ・Fさん<br />
+                        日報一覧
                     </div>
                 </div>
 
