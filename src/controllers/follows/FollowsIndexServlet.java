@@ -39,7 +39,7 @@ public class FollowsIndexServlet extends HttpServlet {
         Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
 
         List<Follow> follows = em.createNamedQuery("getMyAllFollows", Follow.class)
-                                  .setParameter("employee", login_employee)
+                                  .setParameter("follower", login_employee)
                                   .getResultList();
 
         em.close();

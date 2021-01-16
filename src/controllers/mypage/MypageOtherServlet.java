@@ -34,11 +34,18 @@ public class MypageOtherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
+        Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
         Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
+
+        long followcheck = (long)em.createNamedQuery("getMyFollowsCheckCount", Long.class)
+                .setParameter("follower", login_employee)
+                .setParameter("employee", e)
+                .getSingleResult();
 
         em.close();
 
         request.setAttribute("employee", e);
+        request.setAttribute("followcheck", followcheck);
         request.setAttribute("_token", request.getSession().getId());
 
 

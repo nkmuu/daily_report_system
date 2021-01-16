@@ -7,7 +7,7 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-
+            ${followcheck}
             <h2><c:out value="${employee.name}" />&nbsp;さん</h2>
 
             <form action="<c:url value='/follows/create?id=${employee.id}' />" method="post">
