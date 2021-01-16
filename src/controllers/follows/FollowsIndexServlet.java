@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Employee;
 import models.Follow;
 import utils.DBUtil;
 
@@ -35,7 +36,11 @@ public class FollowsIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        List<Follow> follows = em.createNamedQuery("getAllFollows", Follow.class).getResultList();
+        Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
+
+        List<Follow> follows = em.createNamedQuery("getMyAllFollows", Follow.class)
+                                  .setParameter("employee", login_employee)
+                                  .getResultList();
 
         em.close();
 

@@ -12,7 +12,7 @@
         <ul>
             <c:forEach var="follow" items="${follows}">
                 <li>
-                    ・<a href="<c:url value='/mypage/other?id=${follow.follower.id}'/>"><c:out value="${follow.follower.name}" /></a>
+                    ・<a href="<c:url value='/mypage/other?id=${follow.employee.id}'/>"><c:out value="${follow.employee.name}" /></a>
                 </li>
             </c:forEach>
         </ul>

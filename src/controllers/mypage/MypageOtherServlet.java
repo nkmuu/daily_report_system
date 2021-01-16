@@ -39,6 +39,7 @@ public class MypageOtherServlet extends HttpServlet {
         em.close();
 
         request.setAttribute("employee", e);
+        request.setAttribute("_token", request.getSession().getId());
 
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/other.jsp");

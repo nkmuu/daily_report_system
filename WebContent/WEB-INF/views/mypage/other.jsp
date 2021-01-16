@@ -9,6 +9,11 @@
         </c:if>
 
             <h2><c:out value="${employee.name}" />&nbsp;さん</h2>
+
+            <form action="<c:url value='/follows/create?id=${employee.id}' />" method="post">
+                <input type="hidden" name="_token" value="${_token}" />
+                <button type="submit">フォロー</button>
+            </form>
                 <div class="mypage_container">
                     <div class="mypage_index">
 
