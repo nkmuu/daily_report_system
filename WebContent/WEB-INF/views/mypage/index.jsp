@@ -10,17 +10,15 @@
             <h2><c:out value="${employee.name}" />&nbsp;さん</h2>
                 <div class="mypage_container">
                     <div class="mypage_index">
-
-                        <br />
                         <table class="mypage_list">
                             <tbody>
                                 <tr>
                                     <th>部署</th>
-                                    <td><!--<c:out value="${employee.department}" />-->営業部署</td>
+                                    <td><c:out value="${employee.department}" /></td>
                                 </tr>
                                 <tr>
                                     <th>目標</th>
-                                    <td><!--<c:out value="${employee.objective}" />-->獲得件数月間20件</td>
+                                    <td><c:out value="${employee.objective}" /></td>
                                 </tr>
                             </tbody>
                         </table>

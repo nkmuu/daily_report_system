@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,10 +49,9 @@ public class MypageUpdateServlet extends HttpServlet {
 
             request.getSession().setAttribute("flush", "更新が完了しました。");
 
-            request.getSession().removeAttribute("employee_id");
+            //request.getSession().removeAttribute("employee_id");
 
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/index.jsp");
-            rd.forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/mypage/index?id=" + e.getId());
 
         }
     }
