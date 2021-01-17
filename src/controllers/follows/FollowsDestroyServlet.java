@@ -1,6 +1,7 @@
 package controllers.follows;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -14,16 +15,16 @@ import models.Follow;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class FollowsCreateServlet
+ * Servlet implementation class FollowsDestroyServlet
  */
-@WebServlet("/follows/create")
-public class FollowsCreateServlet extends HttpServlet {
+@WebServlet("/follows/destroy")
+public class FollowsDestroyServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FollowsCreateServlet() {
+    public FollowsDestroyServlet() {
         super();
     }
 
@@ -35,18 +36,26 @@ public class FollowsCreateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Follow f = new Follow();
-
-            f.setFollower((Employee)request.getSession().getAttribute("login_employee"));
-
+            Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
             Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
-            f.setEmployee(e);
+
+            List<Follow> follows = em.createNamedQuery("getFollowsDestroyCheck", Follow.class)
+                    .setParameter("follower", login_employee)
+                    .setParameter("employee", e)
+                    .getResultList();
+
 
             em.getTransaction().begin();
-            em.persist(f);
+
+            for (int i = 0; i < follows.size(); i++) {
+                em.remove(follows.get(i));
+              }
+
             em.getTransaction().commit();
             em.close();
-            request.getSession().setAttribute("flush", "フォローしました");
+
+            request.getSession().removeAttribute("followcheck");
+            request.getSession().setAttribute("flush", "フォロー解除しました");
 
             response.sendRedirect(request.getContextPath() + "/reports/index");
         }

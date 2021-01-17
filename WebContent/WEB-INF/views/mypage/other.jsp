@@ -7,13 +7,23 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-            ${followcheck}
             <h2><c:out value="${employee.name}" />&nbsp;さん</h2>
 
-            <form action="<c:url value='/follows/create?id=${employee.id}' />" method="post">
+            <c:choose>
+                <c:when test="${followcheck == 0}">
+                <form action="<c:url value='/follows/create?id=${employee.id}' />" method="post">
                 <input type="hidden" name="_token" value="${_token}" />
                 <button type="submit">フォロー</button>
-            </form>
+                </form>
+                </c:when>
+                <c:otherwise>
+                <form action="<c:url value='/follows/destroy?id=${employee.id}' />" method="post">
+                <input type="hidden" name="_token" value="${_token}" />
+                <button type="submit">フォロー解除</button>
+                </form>
+                </c:otherwise>
+            </c:choose>
+
                 <div class="mypage_container">
                     <div class="mypage_index">
 
