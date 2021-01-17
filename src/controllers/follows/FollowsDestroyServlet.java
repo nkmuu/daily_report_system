@@ -57,7 +57,7 @@ public class FollowsDestroyServlet extends HttpServlet {
             request.getSession().removeAttribute("followcheck");
             request.getSession().setAttribute("flush", "フォロー解除しました");
 
-            response.sendRedirect(request.getContextPath() + "/reports/index");
+            response.sendRedirect(request.getContextPath() + "/mypage/other?id=" + e.getId());
         }
     }
 
