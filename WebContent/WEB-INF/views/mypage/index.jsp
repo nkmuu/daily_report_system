@@ -8,9 +8,11 @@
             </div>
         </c:if>
             <h2><c:out value="${employee.name}" />&nbsp;さん</h2>
-                <div class="mypage_container">
-                    <div class="mypage_index">
-                        <table class="mypage_list">
+            <div class="mypage_container">
+                <div class="mypage_index">
+                <h3><span class="under">プロフィール</span></h3>
+                        <br />
+                        <table class="mypage_list">
                             <tbody>
                                 <tr>
                                     <th>部署</th>
@@ -25,9 +27,9 @@
 
                     <p><a href="<c:url value='/mypage/edit?id=${employee.id}' />">編集する</a></p>
                     </div>
-
-                    <div class="follow_list">
-                        <h3>フォローリスト</h3>
+                    <div class="follow_list">
+                        <h3><span class="under">フォローリスト</span></h3>
+                        <br />
                             <ul>
                                 <c:forEach var="follow" items="${follows}">
                                     <li>

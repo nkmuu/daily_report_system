@@ -1,4 +1,4 @@
-package controllers.mypage;
+package controllers.reports;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,18 +16,17 @@ import models.Report;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class MypageOtherServlet
+ * Servlet implementation class ReportsOtherlistServlet
  */
-@WebServlet("/mypage/other")
-public class MypageOtherServlet extends HttpServlet {
+@WebServlet("/reports/otherlist")
+public class ReportsOtherlistServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageOtherServlet() {
+    public ReportsOtherlistServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -36,13 +35,7 @@ public class MypageOtherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        Employee login_employee = (Employee)request.getSession().getAttribute("login_employee");
         Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
-
-        long followcheck = (long)em.createNamedQuery("getMyFollowsCheckCount", Long.class)
-                                    .setParameter("follower", login_employee)
-                                    .setParameter("employee", e)
-                                    .getSingleResult();
 
         int page;
         try {
@@ -52,8 +45,8 @@ public class MypageOtherServlet extends HttpServlet {
         }
         List<Report> reports = em.createNamedQuery("getMyAllReports", Report.class)
                                  .setParameter("employee", e)
-                                 .setFirstResult(5 * (page - 1))
-                                 .setMaxResults(5)
+                                 .setFirstResult(15 * (page - 1))
+                                 .setMaxResults(15)
                                  .getResultList();
 
         long reports_count = (long)em.createNamedQuery("getMyReportsCount", Long.class)
@@ -63,15 +56,16 @@ public class MypageOtherServlet extends HttpServlet {
         em.close();
 
         request.setAttribute("employee", e);
-        request.setAttribute("followcheck", followcheck);
-
         request.setAttribute("reports", reports);
         request.setAttribute("reports_count", reports_count);
         request.setAttribute("page", page);
-        request.setAttribute("_token", request.getSession().getId());
 
+        if(request.getSession().getAttribute("flush") != null) {
+            request.setAttribute("flush", request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");
+        }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/other.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reports/otherlist.jsp");
         rd.forward(request, response);
     }
 

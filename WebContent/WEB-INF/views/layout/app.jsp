@@ -34,8 +34,10 @@
             </div>
         </div>
 
-        <footer>
+
+        <div class="clear"></div>
+        <div id="footer">
             by Taro Kirameki.
-        </footer>
+        </div>
     </body>
 </html>
