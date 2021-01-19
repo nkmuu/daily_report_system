@@ -70,6 +70,10 @@ public class MypageOtherServlet extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("_token", request.getSession().getId());
 
+        if(request.getSession().getAttribute("flush") != null) {
+            request.setAttribute("flush", request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");
+        }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/other.jsp");
         rd.forward(request, response);

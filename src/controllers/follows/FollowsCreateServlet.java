@@ -45,8 +45,8 @@ public class FollowsCreateServlet extends HttpServlet {
             em.getTransaction().begin();
             em.persist(f);
             em.getTransaction().commit();
-            em.close();
             request.getSession().setAttribute("flush", "フォローしました");
+            em.close();
 
             response.sendRedirect(request.getContextPath() + "/mypage/other?id=" + e.getId());
         }
